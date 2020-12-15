@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'] // holds an array of paths of css files that should be applied to this components template (app.component.css)
 })
 export class AppComponent {
-  title = 'angular-practice';
+  persons: string[] = ["James", "Bob", "Jane"];
 }
