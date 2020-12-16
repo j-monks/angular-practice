@@ -1,15 +1,15 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 // can inject services into other components (dependency injection)
 @Injectable({ providedIn: 'root' }) // makes angular (the root) aware of this service
 export class PersonsService {
-  @Output() personCreate = new EventEmitter<string>();
+  personsChanged = new Subject<string[]>(); // similar to eventEmitter
   persons: string[] = ["James", "Bob", "Jane"];
-  enteredPersonName = "";
 
   addPerson(name: string) {
     this.persons.push(name);
-    console.log(this.persons);
+    this.personsChanged.next(this.persons); // contains updated list of persons
   }
 
   removePerson(name: string) {
@@ -17,6 +17,6 @@ export class PersonsService {
     this.persons = this.persons.filter(person => {
       return person !== name;
     });
-    console.log(this.persons);
+    this.personsChanged.next(this.persons);
   }
 }
