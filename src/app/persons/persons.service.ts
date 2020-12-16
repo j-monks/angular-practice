@@ -11,4 +11,12 @@ export class PersonsService {
     this.persons.push(name);
     console.log(this.persons);
   }
+
+  removePerson(name: string) {
+    // keeps every person with name when true / drops when false
+    this.persons = this.persons.filter(person => {
+      return person !== name;
+    });
+    console.log(this.persons);
+  }
 }
