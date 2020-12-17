@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 // can inject services into other components (dependency injection)
 @Injectable({ providedIn: 'root' }) // makes angular (the root) aware of this service
 export class PersonsService {
   personsChanged = new Subject<string[]>(); // similar to eventEmitter
-  persons: string[] = ["James", "Bob", "Jane"];
+  persons!: string[];
+
+  constructor(private http: HttpClient) {}
+
+  fetchPerson() {
+    this.http.get<any>("https://swapi.dev/api/people/").subscribe(resData => {
+      console.log(resData);
+    });
+  }
 
   addPerson(name: string) {
     this.persons.push(name);

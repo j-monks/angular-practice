@@ -22,7 +22,7 @@ export class PersonsComponent implements OnInit, OnDestroy {
 
   // using the ngOnInit lifecycle hook as its best practice (should contain all initialization tasks within instead of constructor)
   ngOnInit() {
-    this.personList = this.prsService.persons;
+    this.prsService.fetchPerson();
     // listening for new value from personsChanged subject (eventEmitter in persons service e.g the updated persons list)
     // personListSubs is using a onDestroy lifecycle hook that prevents memory leaks (from subs piling up)
     this.personListSubs = this.prsService.personsChanged.subscribe(persons => {
