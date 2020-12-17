@@ -8,8 +8,8 @@ import { Subscription } from 'rxjs';
 })
 
 export class PersonsComponent implements OnInit, OnDestroy {
-  personList: string[];
-  private personListSubs: Subscription;
+  personList!: string[];
+  private personListSubs!: Subscription;
   // private personService: PersonsService;
 
   // constructor will run automaticlly whenever angular creates a new instance of this component (rendering)
