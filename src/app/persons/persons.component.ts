@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 
 export class PersonsComponent implements OnInit, OnDestroy {
   personList!: string[];
+  isFetching = false;
   private personListSubs!: Subscription;
   // private personService: PersonsService;
 
@@ -22,12 +23,16 @@ export class PersonsComponent implements OnInit, OnDestroy {
 
   // using the ngOnInit lifecycle hook as its best practice (should contain all initialization tasks within instead of constructor)
   ngOnInit() {
-    this.prsService.fetchPerson();
     // listening for new value from personsChanged subject (eventEmitter in persons service e.g the updated persons list)
     // personListSubs is using a onDestroy lifecycle hook that prevents memory leaks (from subs piling up)
     this.personListSubs = this.prsService.personsChanged.subscribe(persons => {
       this.personList = persons;
+      // whenever new persons are added to the list, isFetching is set to false again
+      this.isFetching = false;
     });
+    // before persons are fetched being fetched is set to true
+    this.isFetching = true;
+    this.prsService.fetchPerson();
   }
 
   onRemovePerson(personName: string) {
