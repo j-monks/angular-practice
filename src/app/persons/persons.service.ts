@@ -15,8 +15,8 @@ export class PersonsService {
     this.http
       .get<any>('https://swapi.dev/api/people/')
       .pipe(
-        map((resData) => {
-          return resData.results.map((character) => character.name);
+        map(resData => {
+          return resData.results.map((character: any) => character.name);
         })
       )
       .subscribe((transformedData) => {
